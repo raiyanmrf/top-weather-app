@@ -6,7 +6,7 @@ import {
 } from "./asset/utils.js";
 import { WeatherData } from "./data.js";
 
-const fetchWeatherData = async (
+export const fetchWeatherData = async (
   region = DEFAULT_REGION,
   unit = DEFAULT_UNIT,
 ) => {
