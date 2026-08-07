@@ -30,10 +30,11 @@ const createWeatherURL = (region, unit) => {
 };
 
 export function getGiph(search, url = GIPHY) {
-  const query = search.replace(/\s/g, "-").trim().toLowerCase() + "-nature";
+  const query =
+    search.replace(/\s/g, "-").trim().toLowerCase() + "-weather-nature";
   url = `${url}&s=${query}`;
   console.log(url);
-  fetch(url)
+  return fetch(url)
     .then((res) => {
       if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
       return res.json();
@@ -43,5 +44,5 @@ export function getGiph(search, url = GIPHY) {
       console.log(src);
       return src;
     })
-    .catch((err) => console.error("Error fetching the image:", err));
+    .catch((err) => console.log("Error fetching the image:", err));
 }
