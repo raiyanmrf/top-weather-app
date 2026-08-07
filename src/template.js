@@ -17,13 +17,18 @@ export default class Template {
     return elem;
   }
 
+  loadGiph(search){
+      const data = await gip;
+  }
   loadForm() {
-    const form = this.submitForm();
+    const form = this.submitForm((e, obj) => {
+      this.loadCard(obj.region, obj.unit);
+    });
     console.log(form);
     this.main.append(form);
   }
   async loadCard(region = DEFAULT_REGION, unit = DEFAULT_UNIT) {
-    const data = await fetchWeatherData(region, unit);
+    const data = await fetchWeatherData(region.trim(), unit);
     const card = this.weatherCard(data.format());
     this.main.append(card);
   }
@@ -61,9 +66,9 @@ export default class Template {
     const upper = DOM.create("div", { class: "upper" }, [region, time]);
     const middle = DOM.create("div", { class: "middle" }, [
       image,
+      temp,
       feels,
       cond,
-      temp,
     ]);
     const lower = DOM.create("div", { class: "lower" }, [
       humid,
@@ -127,7 +132,7 @@ export default class Template {
     const submitBtn = DOM.create(
       "button",
       { type: "submit", class: "submit-btn" },
-      ["Get Weather Data"],
+      ["CHECK"],
     );
 
     const metricDiv = DOM.create("div", { class: "radio-container" }, [
