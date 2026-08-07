@@ -3,6 +3,7 @@ import { ICON_URL } from "./asset/utils.js";
 export class WeatherData {
   constructor(json, unit) {
     this.resolvedAddress = json.resolvedAddress;
+    this.address = json.address;
     this.description = json.description;
     this.current = json.currentConditions;
     this.unit = unit;
@@ -28,7 +29,7 @@ export class WeatherData {
 
       address: {
         label: "Location",
-        value: this.resolvedAddress,
+        value: this.address,
       },
       description: {
         label: "Description",
