@@ -83,6 +83,10 @@ form * {
   letter-spacing: 3px;
 }
 
+.submit-btn:hover {
+  transform: scale(1.05);
+}
+
 .card {
   max-width: 366px;
   position: relative;
