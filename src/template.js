@@ -1,4 +1,4 @@
-import { fetchWeatherData } from "./api.js";
+import { fetchWeatherData, getGiph } from "./api.js";
 import { DEFAULT_REGION, DEFAULT_UNIT } from "./asset/utils.js";
 import DOM from "./dom.js";
 
@@ -17,8 +17,21 @@ export default class Template {
     return elem;
   }
 
-  loadGiph(search){
-      const data = await gip;
+  async loadGiph() {
+    const icon = DOM.select(".icon");
+    const altText = icon && icon.getAttribute("alt");
+    console.log(altText);
+
+    if (altText) {
+      try {
+        const giphUrl = await getGiph(altText);
+        console.log(giphUrl);
+        const img = DOM.create("img", { id: "giph-background", src: giphUrl });
+        DOM.select(".card").prepend(img);
+      } catch (err) {
+        console.log(err);
+      }
+    }
   }
   loadForm() {
     const form = this.submitForm((e, obj) => {
@@ -29,8 +42,11 @@ export default class Template {
   }
   async loadCard(region = DEFAULT_REGION, unit = DEFAULT_UNIT) {
     const data = await fetchWeatherData(region.trim(), unit);
-    const card = this.weatherCard(data.format());
+    const formattedData = data.format();
+    const card = this.weatherCard(formattedData);
     this.main.append(card);
+
+    this.loadGiph();
   }
   weatherCard(data) {
     const {
