@@ -1,4 +1,9 @@
-import { DEFAULT_REGION, DEFAULT_UNIT, WEATHER_URL } from "./asset/utils.js";
+import {
+  DEFAULT_REGION,
+  DEFAULT_UNIT,
+  GIPHY,
+  WEATHER_URL,
+} from "./asset/utils.js";
 import { WeatherData } from "./data.js";
 
 const fetchWeatherData = async (
@@ -24,6 +29,19 @@ const createWeatherURL = (region, unit) => {
   return `${url}${region}?unitGroup=${unit}&key=7F6998QVQJ4RL5QLQL2TYN9TX&contentType=json`;
 };
 
-const data = await fetchWeatherData();
-
-console.log(data.format());
+function getGiph(search, url = GIPHY) {
+  const query = search.replace(/\s/g, "-").trim().toLowerCase() + "-nature";
+  url = `${url}&s=${query}`;
+  console.log(url);
+  fetch(url)
+    .then((res) => {
+      if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+      return res.json();
+    })
+    .then((result) => {
+      const src = result.data.images.original.url;
+      console.log(src);
+      return src;
+    })
+    .catch((err) => console.error("Error fetching the image:", err));
+}
