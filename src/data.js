@@ -13,22 +13,19 @@ export class WeatherData {
     const unit = this.unit === "metric" ? "°C" : "°F";
     const speed = this.unit === "metric" ? "km/h" : "mph";
     const depth = this.unit === "metric" ? "mm" : "inch";
+    const perc = "%";
     return {
       average: {
         label: "Average Temperature",
-        value: this.current?.temp,
+        value: this.current?.temp + unit,
         unit,
       },
       feelslike: {
         label: "Feels Like",
-        value: this.current?.feelslike,
+        value: this.current?.feelslike + unit,
         unit,
       },
-      dew: {
-        label: "Dew Point",
-        value: this.current?.dew,
-        unit,
-      },
+
       address: {
         label: "Location",
         value: this.resolvedAddress,
@@ -44,10 +41,10 @@ export class WeatherData {
       icon: {
         label: "Icon",
         value: this.current?.icon,
-        url: ICON_URL + this.current?.icon + ".png",
+        url: ICON_URL + this.current?.icon + ".png?raw=true",
       },
 
-      time: {
+      moment: {
         label: "Time",
         epoch: this.current?.datetimeEpoch,
         date: this.day?.datetime,
@@ -55,17 +52,17 @@ export class WeatherData {
       },
       precipitation: {
         label: "Precipitation",
-        value: this.current?.precip,
-        unit: "%",
+        value: this.current?.precip + perc,
+        unit: perc,
       },
       humidity: {
         label: "Humidity",
-        value: this.current?.humidity,
-        unit: "%",
+        value: this.current?.humidity + perc,
+        unit: perc,
       },
       windspeed: {
         label: "Wind Speed",
-        value: this.current?.windspeed,
+        value: this.current?.windspeed + speed,
         unit: speed,
       },
     };
