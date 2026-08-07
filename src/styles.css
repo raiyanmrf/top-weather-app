@@ -89,11 +89,13 @@ form * {
 }
 
 .card {
-  max-width: 366px;
+  max-width: 380px;
   position: relative;
-  max-height: fit-content;
-  height: fit-content;
+  border-radius: 5px;
+  height: 380px;
   min-height: 70px;
+  overflow: hidden;
+  padding: 5px;
 
   .upper {
     display: flex;
