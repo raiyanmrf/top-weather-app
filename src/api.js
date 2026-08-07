@@ -29,7 +29,7 @@ const createWeatherURL = (region, unit) => {
   return `${url}${region}?unitGroup=${unit}&key=7F6998QVQJ4RL5QLQL2TYN9TX&contentType=json`;
 };
 
-function getGiph(search, url = GIPHY) {
+export function getGiph(search, url = GIPHY) {
   const query = search.replace(/\s/g, "-").trim().toLowerCase() + "-nature";
   url = `${url}&s=${query}`;
   console.log(url);
