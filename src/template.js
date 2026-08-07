@@ -128,7 +128,7 @@ export default class Template {
         class: "radio-label",
         for: "metric",
       },
-      ["metric (°C, km/h)"],
+      ["metric (°C)"],
     );
     const us = DOM.create("input", {
       type: "radio",
@@ -143,7 +143,7 @@ export default class Template {
         class: "radio-label",
         for: "us",
       },
-      ["us (°F, mph)"],
+      ["us (°F)"],
     );
     const submitBtn = DOM.create(
       "button",
@@ -164,10 +164,15 @@ export default class Template {
       metricDiv,
       usDiv,
     ]);
+
+    const inputSection = DOM.create("div", { class: "input-section" }, [
+      input,
+      radioSection,
+    ]);
     const form = DOM.create(
       "form",
       { id: "get-weather-form" },
-      [input, radioSection, submitBtn],
+      [inputSection, submitBtn],
       ["submit", callback],
     );
 
