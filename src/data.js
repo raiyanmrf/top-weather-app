@@ -11,6 +11,8 @@ export class WeatherData {
 
   format() {
     const unit = this.unit === "metric" ? "°C" : "°F";
+    const speed = this.unit === "metric" ? "km/h" : "mph";
+    const depth = this.unit === "metric" ? "mm" : "inch";
     return {
       average: {
         label: "Average Temperature",
@@ -51,13 +53,20 @@ export class WeatherData {
         date: this.day?.datetime,
         time: this.current?.datetime,
       },
-      sunset: {
-        label: "Sunset",
-        value: this.current?.sunset,
+      precipitation: {
+        label: "Precipitation",
+        value: this.current?.precip,
+        unit: "%",
       },
-      sunrise: {
-        label: "Sunrise",
-        value: this.current?.sunrise,
+      humidity: {
+        label: "Humidity",
+        value: this.current?.humidity,
+        unit: "%",
+      },
+      windspeed: {
+        label: "Wind Speed",
+        value: this.current?.windspeed,
+        unit: speed,
       },
     };
   }
