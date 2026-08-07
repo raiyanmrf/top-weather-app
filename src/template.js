@@ -1,9 +1,11 @@
 import { fetchWeatherData } from "./api.js";
+import { DEFAULT_REGION, DEFAULT_UNIT } from "./asset/utils.js";
 import DOM from "./dom.js";
 
 export default class Template {
   constructor() {
     this.content = this.loadContent();
+    this.form = this.loadForm();
   }
 
   loadContent() {
@@ -11,11 +13,17 @@ export default class Template {
     const elem = DOM.create("main", { id: "content" }, []);
     body.append(elem);
     this.main = elem;
+
     return elem;
   }
 
-  async loadCard() {
-    const data = await fetchWeatherData();
+  loadForm() {
+    const form = this.submitForm();
+    console.log(form);
+    this.main.append(form);
+  }
+  async loadCard(region = DEFAULT_REGION, unit = DEFAULT_UNIT) {
+    const data = await fetchWeatherData(region, unit);
     const card = this.weatherCard(data.format());
     this.main.append(card);
   }
@@ -73,5 +81,75 @@ export default class Template {
     const label = DOM.create("span", {}, [obj.label]);
     const value = DOM.create("span", { class: "value" }, [obj.value]);
     return DOM.create("span", { class: `${className} label` }, [value, label]);
+  }
+
+  submitForm(callback = null) {
+    const input = DOM.create("input", {
+      type: "text",
+      class: "search-input",
+      name: "region",
+      placeholder: "Enter a Region e.g. Dhaka",
+      value: "",
+      required: true,
+    });
+
+    const metric = DOM.create("input", {
+      type: "radio",
+      class: "radio-input",
+      name: "unit",
+      id: "metric",
+      value: "metric",
+      checked: true,
+    });
+    const metricLabel = DOM.create(
+      "label",
+      {
+        class: "radio-label",
+        for: "metric",
+      },
+      ["metric (°C, km/h)"],
+    );
+    const us = DOM.create("input", {
+      type: "radio",
+      class: "radio-input",
+      name: "unit",
+      id: "us",
+      value: "us",
+    });
+    const usLabel = DOM.create(
+      "label",
+      {
+        class: "radio-label",
+        for: "us",
+      },
+      ["us (°F, mph)"],
+    );
+    const submitBtn = DOM.create(
+      "button",
+      { type: "submit", class: "submit-btn" },
+      ["Get Weather Data"],
+    );
+
+    const metricDiv = DOM.create("div", { class: "radio-container" }, [
+      metric,
+      metricLabel,
+    ]);
+    const usDiv = DOM.create("div", { class: "radio-container" }, [
+      us,
+      usLabel,
+    ]);
+
+    const radioSection = DOM.create("div", { class: "radio-section" }, [
+      metricDiv,
+      usDiv,
+    ]);
+    const form = DOM.create(
+      "form",
+      { id: "get-weather-form" },
+      [input, radioSection, submitBtn],
+      ["submit", callback],
+    );
+
+    return form;
   }
 }
