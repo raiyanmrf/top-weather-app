@@ -53,17 +53,17 @@ export class WeatherData {
       },
       precipitation: {
         label: "Precipitation",
-        value: this.current?.precip + perc,
+        value: this.current?.precip,
         unit: perc,
       },
       humidity: {
         label: "Humidity",
-        value: this.current?.humidity + perc,
+        value: this.current?.humidity,
         unit: perc,
       },
       windspeed: {
         label: "Wind Speed",
-        value: this.current?.windspeed + speed,
+        value: this.current?.windspeed,
         unit: speed,
       },
     };
