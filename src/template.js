@@ -16,23 +16,6 @@ export default class Template {
 
     return elem;
   }
-
-  async loadGiph() {
-    const icon = DOM.select(".icon");
-    const altText = icon && icon.getAttribute("alt");
-    console.log(altText);
-
-    if (altText) {
-      try {
-        const giphUrl = await getGiph(altText);
-        console.log(giphUrl);
-        const img = DOM.create("img", { id: "giph-background", src: giphUrl });
-        DOM.select(".card").prepend(img);
-      } catch (err) {
-        console.log(err);
-      }
-    }
-  }
   loadForm() {
     const form = this.submitForm((e, obj) => {
       this.loadCard(obj.region, obj.unit);
@@ -40,13 +23,49 @@ export default class Template {
     console.log(form);
     this.main.append(form);
   }
-  async loadCard(region = DEFAULT_REGION, unit = DEFAULT_UNIT) {
-    const data = await fetchWeatherData(region.trim(), unit);
-    const formattedData = data.format();
-    const card = this.weatherCard(formattedData);
-    this.main.append(card);
 
-    this.loadGiph();
+  loadingScreen() {
+    const msg = DOM.create("p", { class: "loading" }, ["Loading"]);
+    const card = DOM.create("div", { class: "card" }, [msg]);
+    !DOM.replaceWith(card, ".card") && this.main.append(card);
+  }
+  errorScreen(error) {
+    const msg = DOM.create("p", { class: "error" }, [error]);
+    DOM.replaceWith(msg, ".loading");
+  }
+  async loadGiph(icon) {
+    // const icon = DOM.select(".icon");
+    // const altText = icon && icon.getAttribute("alt");
+    // console.log(altText);
+
+    if (icon) {
+      try {
+        const giphUrl = await getGiph(icon);
+        console.log(giphUrl);
+        const img = DOM.create("img", { id: "giph-background", src: giphUrl });
+
+        return img;
+      } catch (err) {
+        console.log(err);
+        return false;
+      }
+    }
+  }
+
+  async loadCard(region = DEFAULT_REGION, unit = DEFAULT_UNIT) {
+    try {
+      this.loadingScreen();
+      const data = await fetchWeatherData(region.trim(), unit);
+      const formattedData = data.format();
+      const card = this.weatherCard(formattedData);
+      const bg = await this.loadGiph(formattedData.icon.value);
+
+      if (bg) card.prepend(bg);
+
+      !DOM.replaceWith(card, ".card") && this.main.append(card);
+    } catch (error) {
+      this.errorScreen(error);
+    }
   }
   weatherCard(data) {
     const {
