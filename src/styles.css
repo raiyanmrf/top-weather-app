@@ -96,6 +96,23 @@ form * {
   min-height: 70px;
   overflow: hidden;
   padding: 5px;
+  box-shadow: 0 0 2px black;
+  margin-inline: auto;
+  margin-top: 2rem;
+
+  .loading,
+  .error {
+    margin-top: 2rem;
+    font-size: larger;
+    text-align: center;
+    font-weight: 600;
+  }
+  .loading {
+    color: green;
+  }
+  .error {
+    color: tomato;
+  }
 
   .upper {
     display: flex;
