@@ -98,8 +98,9 @@ export default class Template {
       alt: icon.value,
     });
 
-    const upper = DOM.create("div", { class: "upper" }, [region, time]);
+    const upper = DOM.create("div", { class: "upper" }, [time]);
     const middle = DOM.create("div", { class: "middle" }, [
+      region,
       image,
       temp,
       feels,
