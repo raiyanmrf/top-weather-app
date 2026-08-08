@@ -13,14 +13,17 @@ export const fetchWeatherData = async (
   const url = createWeatherURL(region, unit);
   try {
     const response = await fetch(url);
-    if (!response.ok) throw new Error(response.status);
+    console.log(response);
+    if (!response.ok)
+      throw new Error(`${response.status} ${response.statusText}`);
     const json = await response.json();
 
     // console.log(json);
 
     return new WeatherData(json, unit);
   } catch (error) {
-    console.log("Oops", error);
+    // console.log(error.message);
+    throw error.message;
   }
 };
 
@@ -36,7 +39,7 @@ export function getGiph(search, url = GIPHY) {
   console.log(url);
   return fetch(url)
     .then((res) => {
-      if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+      if (!res.ok) throw new Error(`HTTP error! status: ${res.statusText}`);
       return res.json();
     })
     .then((result) => {
@@ -44,5 +47,8 @@ export function getGiph(search, url = GIPHY) {
       console.log(src);
       return src;
     })
-    .catch((err) => console.log("Error fetching the image:", err));
+    .catch((err) => {
+      console.log(err);
+      throw err.message;
+    });
 }
