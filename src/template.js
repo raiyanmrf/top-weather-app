@@ -118,9 +118,9 @@ export default class Template {
   }
 
   dataWithLabel(className, obj) {
-    let text = obj?.unit ? obj?.value + " " + obj.unit : obj.value;
+    let text = obj.value ? obj.value + obj.unit : "-";
     const label = DOM.create("span", {}, [obj.label]);
-    const value = DOM.create("span", { class: "value" }, [obj.value]);
+    const value = DOM.create("span", { class: "value" }, [text]);
     return DOM.create("span", { class: `${className} label` }, [value, label]);
   }
 
