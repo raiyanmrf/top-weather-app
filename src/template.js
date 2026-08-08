@@ -20,7 +20,7 @@ export default class Template {
     const form = this.submitForm((e, obj) => {
       this.loadCard(obj.region, obj.unit);
     });
-    console.log(form);
+    //console.log(form);
     this.main.append(form);
   }
 
@@ -41,12 +41,12 @@ export default class Template {
     if (icon) {
       try {
         const giphUrl = await getGiph(icon);
-        console.log(giphUrl);
+        // console.log(giphUrl);
         const img = DOM.create("img", { id: "giph-background", src: giphUrl });
 
         return img;
       } catch (err) {
-        console.log(err);
+        // console.log(err);
         return false;
       }
     }
@@ -80,7 +80,7 @@ export default class Template {
       icon,
       description,
     } = data;
-    console.log(data);
+    // console.log(data);
     const temp = DOM.create("span", { class: "avg-temp" }, [average.value]);
     const feels = DOM.create("span", { class: "feels-like" }, [
       `${feelslike.label} ${feelslike.value}`,
