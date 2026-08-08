@@ -10,7 +10,12 @@
     "build": "webpack --config webpack.prod.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint src/**/*.js",
-    "lint:fix": "eslint src/**/*.js --fix"
+    "lint:fix": "eslint src/**/*.js --fix",
+    "deploy:init": "git branch gh-pages",
+    "deploy:prepare": "git checkout gh-pages && git merge main --no-edit",
+    "deploy:commit": "git add dist -f && git commit -m \"Deployment commit\"",
+    "deploy:push": "git subtree push --prefix dist origin gh-pages",
+    "deploy:return": "git checkout main"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
