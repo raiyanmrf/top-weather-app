@@ -33,8 +33,7 @@ const createWeatherURL = (region, unit) => {
 };
 
 export function getGiph(search, url = GIPHY) {
-  const query =
-    search.replace(/\s/g, "-").trim().toLowerCase() + "-weather-nature";
+  const query = search.replace(/\s/g, "-").trim().toLowerCase() + "-nature";
   url = `${url}&s=${query}`;
   console.log(url);
   return fetch(url)
