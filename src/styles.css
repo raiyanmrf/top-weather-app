@@ -99,6 +99,8 @@ form * {
   box-shadow: 0 0 2px black;
   margin-inline: auto;
   margin-top: 2rem;
+  display: flex;
+  flex-direction: column;
 
   .loading,
   .error {
@@ -120,13 +122,13 @@ form * {
     font-size: 13px;
     font-weight: lighter;
     text-transform: capitalize;
-    margin-bottom: 15px;
+    /* margin-bottom: 15px; */
   }
   .middle {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-bottom: 15px;
+    margin-block: auto;
 
     img {
       width: 90px;
