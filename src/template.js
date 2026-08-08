@@ -58,9 +58,9 @@ export default class Template {
       const data = await fetchWeatherData(region.trim(), unit);
       const formattedData = data.format();
       const card = this.weatherCard(formattedData);
-      const bg = await this.loadGiph(formattedData.icon.value);
+      // const bg = await this.loadGiph(formattedData.icon.value);
 
-      if (bg) card.prepend(bg);
+      // if (bg) card.prepend(bg);
 
       !DOM.replaceWith(card, ".card") && this.main.append(card);
     } catch (error) {
