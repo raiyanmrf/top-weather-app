@@ -110,7 +110,10 @@ form * {
     font-weight: 600;
   }
   .loading {
-    color: green;
+    font-weight: bolder;
+    letter-spacing: 2px;
+    color: lightskyblue;
+    text-transform: uppercase;
   }
   .error {
     color: tomato;
@@ -119,7 +122,7 @@ form * {
   .upper {
     display: flex;
     justify-content: space-between;
-    font-size: 16px;
+    font-size: 1rem;
     /* font-weight: lighter; */
     text-transform: capitalize;
     /* margin-bottom: 15px; */
@@ -143,14 +146,18 @@ form * {
       font-weight: bolder;
     }
     .region {
-      font-size: 1.5rem;
+      font-size: 1.6rem;
       font-weight: bolder;
       text-transform: capitalize;
     }
 
     .feels-like {
       font-weight: lighter;
-      font-size: 0.8rem;
+      font-size: 0.9rem;
+    }
+
+    .condition {
+      font-size: 1rem;
     }
   }
 
